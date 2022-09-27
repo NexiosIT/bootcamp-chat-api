@@ -1,7 +1,7 @@
 # Bootcamp-chat-api
 
 ### Specs
-* Local: <http://localhost:3000/api>
+* Local: <http://localhost:3000/docs>
 * Online: /
 
 ### Docker
