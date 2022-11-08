@@ -1,12 +1,17 @@
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from './entities/user.entity';
 
-@ApiTags('users')
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   // constructor(private readonly catsService: CatsService) {}
+
+  @Post()
+  create(): string[] {
+    return [];
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')

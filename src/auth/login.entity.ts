@@ -4,7 +4,7 @@ import { IsString } from 'class-validator';
 export class LoginDTO {
   @IsString()
   @ApiProperty({
-    example: 'ey...',
+    example: '...',
     description: 'The access_token of the User',
   })
   readonly access_token: string;

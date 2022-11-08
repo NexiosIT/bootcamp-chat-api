@@ -1,4 +1,4 @@
-FROM node:18-alpine As build
+FROM node:18-alpine as build
 WORKDIR /usr/src/app
 COPY . .
 RUN npm i
@@ -7,7 +7,7 @@ RUN npm run build
 ENV NODE_ENV production
 RUN npm ci --only=production && npm cache clean --force
 
-FROM node:18-alpine As production
+FROM node:18-alpine as production
 COPY  --from=build /usr/src/app/node_modules ./node_modules
 COPY  --from=build /usr/src/app/dist ./dist
 
