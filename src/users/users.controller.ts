@@ -1,6 +1,6 @@
 import {
+  Body,
   Controller,
-  Delete,
   Get,
   Post,
   Request,
@@ -10,11 +10,12 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './users.schema';
+import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  // constructor(private readonly catsService: CatsService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   @ApiResponse({
@@ -22,8 +23,8 @@ export class UsersController {
     description: 'Register an user',
     type: CreateUserDto,
   })
-  create(): string[] {
-    return [];
+  async create(@Body() newUser: CreateUserDto): Promise<User> {
+    return await this.usersService.create(newUser);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -36,14 +37,5 @@ export class UsersController {
   @ApiBearerAuth()
   getProfile(@Request() req) {
     return req.user;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Delete(':id')
-  @ApiResponse({
-    status: 201,
-  })
-  delete(): string[] {
-    return [];
   }
 }

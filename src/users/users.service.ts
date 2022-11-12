@@ -10,8 +10,8 @@ export class UsersService {
     @InjectModel(User.name) private messageModel: Model<UserDocument>,
   ) {}
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.messageModel.findOne({ username });
+  async findOne(email: string): Promise<User | undefined> {
+    return this.messageModel.findOne({ email });
   }
 
   async create(newUser: CreateUserDto): Promise<User> {
