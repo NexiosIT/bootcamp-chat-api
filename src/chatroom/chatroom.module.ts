@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ControllerController } from './chatroom.controller';
-import { Chatroom, ChatroomSchema } from './chatroom.git.schema';
+import { Chatroom, ChatroomSchema } from './chatroom.schema';
 import { ChatroomService } from './chatroom.service';
 
 @Module({

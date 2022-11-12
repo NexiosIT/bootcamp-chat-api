@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateChatroomDto } from './Chatroom.dto';
-import { Chatroom } from './chatroom.git.schema';
+import { Chatroom } from './chatroom.schema';
 import { ChatroomService } from './chatroom.service';
 
 @ApiTags('Chatrooms')
