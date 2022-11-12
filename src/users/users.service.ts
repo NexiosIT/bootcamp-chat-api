@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,6 +15,13 @@ export class UsersService {
   }
 
   async create(newUser: CreateUserDto): Promise<User> {
+    const userWithEmail = this.messageModel.findOne({ email: newUser.email });
+    if (userWithEmail) throw new BadRequestException('E-mail already used');
+    const userWithUsername = this.messageModel.findOne({
+      username: newUser.username,
+    });
+    if (userWithUsername)
+      throw new BadRequestException('Username already used');
     const createdMessage = new this.messageModel(newUser);
     return createdMessage.save();
   }

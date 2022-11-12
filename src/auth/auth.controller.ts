@@ -15,7 +15,6 @@ export class AuthController {
   @Post('login')
   @ApiBody({
     type: CreateUserDto,
-    description: '[TODO]',
   })
   @ApiResponse({ status: 401, description: 'Forbidden.' })
   @ApiResponse({ status: 201, type: LoginDTO })
