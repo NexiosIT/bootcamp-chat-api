@@ -10,10 +10,6 @@ export class Message {
   @ApiProperty({ description: 'The id of the user' })
   user: string;
 
-  // @Prop({ required: true })
-  // @ApiProperty({ description: 'The id of the chatroom' })
-  // chatroom: string;
-
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Chatroom', required: true })
   @ApiProperty({ description: 'The id of the chatroom' })
   chatroom!: Types.ObjectId;
@@ -30,10 +26,3 @@ export class Message {
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);
-
-// MessageSchema.virtual('chatroom2', {
-//   ref: 'Chatroom',
-//   localField: 'chatroom',
-//   foreignField: '_id',
-//   justOne: true,
-// });

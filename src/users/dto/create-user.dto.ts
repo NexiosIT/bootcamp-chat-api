@@ -11,6 +11,13 @@ export class CreateUserDto {
 
   @IsString()
   @ApiProperty({
+    example: 'demo@nexiosit.com',
+    description: 'E-mail of the User',
+  })
+  readonly email: string;
+
+  @IsString()
+  @ApiProperty({
     example: 'demo',
     description: 'The password of the User',
   })

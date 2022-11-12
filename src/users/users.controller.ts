@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { User } from './users.schema';
 
 @ApiTags('Users')
 @Controller('users')
@@ -9,6 +17,11 @@ export class UsersController {
   // constructor(private readonly catsService: CatsService) {}
 
   @Post()
+  @ApiResponse({
+    status: 200,
+    description: 'Register an user',
+    type: CreateUserDto,
+  })
   create(): string[] {
     return [];
   }
@@ -23,5 +36,14 @@ export class UsersController {
   @ApiBearerAuth()
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  @ApiResponse({
+    status: 201,
+  })
+  delete(): string[] {
+    return [];
   }
 }
