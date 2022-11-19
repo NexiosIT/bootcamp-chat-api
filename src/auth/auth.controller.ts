@@ -1,10 +1,9 @@
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
+import { LoginDTO, LoginResponseDTO } from './dto/LoginDto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
-import { LoginDTO } from './login.entity';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -14,10 +13,10 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiBody({
-    type: CreateUserDto,
+    type: LoginDTO,
   })
   @ApiResponse({ status: 401, description: 'Forbidden.' })
-  @ApiResponse({ status: 201, type: LoginDTO })
+  @ApiResponse({ status: 201, type: LoginResponseDTO })
   async login(@Request() req) {
     return this.authService.login(req.user);
   }

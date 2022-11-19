@@ -15,9 +15,11 @@ export class UsersService {
   }
 
   async create(newUser: CreateUserDto): Promise<User> {
-    const userWithEmail = this.messageModel.findOne({ email: newUser.email });
+    const userWithEmail = await this.messageModel.findOne({
+      email: newUser.email,
+    });
     if (userWithEmail) throw new BadRequestException('E-mail already used');
-    const userWithUsername = this.messageModel.findOne({
+    const userWithUsername = await this.messageModel.findOne({
       username: newUser.username,
     });
     if (userWithUsername)
