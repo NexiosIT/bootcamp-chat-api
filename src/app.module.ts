@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module';
     ChatroomModule,
     MessageModule,
     MongooseModule.forRoot(
-      'mongodb+srv://api:Hepfod-canvyr-1dykvu@cluster0.ltvdow2.mongodb.net/e2e?retryWrites=true&w=majority',
+      'mongodb+srv://api:Hepfod-canvyr-1dykvu@cluster0.ltvdow2.mongodb.net/dev?retryWrites=true&w=majority',
     ),
   ],
   providers: [AppGateway],
