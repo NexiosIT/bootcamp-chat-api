@@ -17,10 +17,24 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './users.schema';
 import { UsersService } from './users.service';
 
+import * as bcrypt from 'bcrypt';
+
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Get all users',
+    type: User,
+    isArray: true,
+  })
+  @ApiBearerAuth()
+  async findAll(): Promise<User[]> {
+    return await this.usersService.findAll();
+  }
 
   @Post()
   @ApiResponse({
@@ -45,7 +59,14 @@ export class UsersController {
     },
   })
   async create(@Body() newUser: CreateUserDto): Promise<User> {
-    return await this.usersService.create(newUser);
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(newUser.password, saltOrRounds);
+    const result = await this.usersService.create({
+      ...newUser,
+      password: hashedPassword,
+    });
+
+    return result;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -57,6 +78,6 @@ export class UsersController {
   })
   @ApiBearerAuth()
   getProfile(@Request() req) {
-    return req.user;
+    return this.usersService.findOne(req.user.email, true);
   }
 }

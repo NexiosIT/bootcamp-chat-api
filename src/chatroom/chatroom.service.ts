@@ -24,7 +24,9 @@ export class ChatroomService {
     return this.chatroomModel.deleteOne({ id }).exec();
   }
 
-  async findAll(): Promise<Chatroom[]> {
-    return this.chatroomModel.find().exec();
+  async findAll(userId?: string): Promise<Chatroom[]> {
+    return this.chatroomModel
+      .find({ ...('userId' && { allowed_users: userId }) })
+      .exec();
   }
 }

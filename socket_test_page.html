@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    const socket = io('ws://127.0.0.1:3000', {
+      reconnectionDelayMax: 10000,
+    });
+  </script>
+  <body>
+    Test page for conncectin with socket.io
+  </body>
+</html>

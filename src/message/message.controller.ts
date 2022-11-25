@@ -7,9 +7,11 @@ import {
   Param,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateMessageDto } from './message.dto';
 import { Message } from './message.schema';
 import { MessageService } from './message.service';
@@ -18,6 +20,7 @@ import { MessageService } from './message.service';
 @Controller('messages')
 export class ControllerController {
   constructor(private readonly messageService: MessageService) {}
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiResponse({
     status: 200,
@@ -30,6 +33,7 @@ export class ControllerController {
     return await this.messageService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -42,6 +46,7 @@ export class ControllerController {
     return result;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiResponse({
     status: 200,
@@ -49,14 +54,12 @@ export class ControllerController {
     type: Message,
   })
   @ApiBearerAuth()
-  async create(
-    @Body() newMessage: CreateMessageDto,
-    @Res() res: Response,
-  ): Promise<Message> {
+  async create(@Body() newMessage: CreateMessageDto): Promise<Message> {
     const result = await this.messageService.create(newMessage);
     return result;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   @ApiBearerAuth()
   @ApiResponse({

@@ -1,6 +1,7 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { SocketService } from 'src/socket/socket.service';
 import { ChatroomService } from '../chatroom/chatroom.service';
 import { CreateMessageDto } from './message.dto';
 import { Message, MessageDocument } from './message.schema';
@@ -14,6 +15,9 @@ export class MessageService {
   @Inject(ChatroomService)
   private readonly chatroomService: ChatroomService;
 
+  @Inject(SocketService)
+  private readonly socketService: SocketService;
+
   async create(createMessageDto: CreateMessageDto): Promise<Message> {
     const chatroom = await this.chatroomService.findOne(
       createMessageDto.chatroom,
@@ -23,6 +27,7 @@ export class MessageService {
       ...createMessageDto,
       published_at: new Date(),
     });
+    this.socketService.sendMessage('new_message', createdMessage);
     return createdMessage.save();
   }
 
