@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { SocketService } from 'src/socket/socket.service';
 import { CreateChatroomDto } from './chatroom.dto';
 import { Chatroom, ChatroomDocument } from './chatroom.schema';
 
@@ -10,9 +11,12 @@ export class ChatroomService {
     @InjectModel(Chatroom.name) private chatroomModel: Model<ChatroomDocument>,
   ) {}
 
+  @Inject(SocketService)
+  private readonly socketService: SocketService;
+
   async create(createChatroomDto: CreateChatroomDto): Promise<Chatroom> {
-    // await this.findOne({ $where: { name: createChatroomDto.name } });
     const createdChatroom = new this.chatroomModel(createChatroomDto);
+    this.socketService.sendMessage('new_chatroom', createdChatroom);
     return createdChatroom.save();
   }
 

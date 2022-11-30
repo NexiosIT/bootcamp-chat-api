@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SocketModule } from 'src/socket/socket.module';
 import { ControllerController } from './chatroom.controller';
 import { Chatroom, ChatroomSchema } from './chatroom.schema';
 import { ChatroomService } from './chatroom.service';
@@ -9,6 +10,7 @@ import { ChatroomService } from './chatroom.service';
     MongooseModule.forFeature([
       { name: Chatroom.name, schema: ChatroomSchema },
     ]),
+    SocketModule,
   ],
   controllers: [ControllerController],
   providers: [ChatroomService],
