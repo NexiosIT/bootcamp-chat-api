@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Server } from 'socket.io';
+import { WebSocketServer } from 'ws';
 
 @Injectable()
 export class SocketService {
-  public socket: Server = null;
+  public socket: WebSocketServer = null;
 
   sendMessage(event: string, data: any) {
-    this.socket.emit(event, data);
+    this.socket.clients.forEach(function (client) {
+      client.send(JSON.stringify({ event, data }));
+      client.emit(event, data);
+    });
   }
 }

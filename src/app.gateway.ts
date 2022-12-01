@@ -6,8 +6,9 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { WebSocketServer as WebSocketServerType } from 'ws';
 import { SocketService } from './socket/socket.service';
+
 @WebSocketGateway({
   cors: {
     origin: '*',
@@ -17,18 +18,18 @@ export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   constructor(private socketService: SocketService) {}
-  @WebSocketServer() public server: Server;
+  @WebSocketServer() public server: WebSocketServerType;
   private logger: Logger = new Logger('AppGateway');
 
-  afterInit(server: Server) {
+  afterInit(server: WebSocketServerType) {
     this.socketService.socket = server;
   }
 
-  handleDisconnect(client: Socket) {
-    this.logger.log(`Client disconnected: ${client.id}`);
+  handleDisconnect() {
+    this.logger.log(`Client disconnected`);
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Client connected: ${client.id}`);
+  handleConnection() {
+    this.logger.log(`Client connected`);
   }
 }
