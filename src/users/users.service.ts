@@ -1,6 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { SocketService } from '../socket/socket.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User, UserDocument } from './users.schema';
 const usersProjection = {
@@ -12,6 +13,9 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
+
+  @Inject(SocketService)
+  private readonly socketService: SocketService;
 
   async findOne(
     email: string,
@@ -37,7 +41,13 @@ export class UsersService {
     });
     if (userWithUsername)
       throw new BadRequestException('Username already used');
-    const createdMessage = new this.userModel(newUser);
-    return createdMessage.save();
+    const createdUser = new this.userModel(newUser);
+    const result = await createdUser.save();
+
+    this.socketService.sendMessage('new_user', {
+      email: result.email,
+      username: result.username,
+    });
+    return;
   }
 }
