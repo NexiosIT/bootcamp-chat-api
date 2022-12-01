@@ -39,6 +39,8 @@ export class MessageService {
   }
 
   async deleteOne(id: string) {
+    this.socketService.sendMessage('delete_message', { id });
+
     return this.messageModel.deleteOne({ _id: id }).exec();
   }
 
