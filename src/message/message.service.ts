@@ -27,12 +27,15 @@ export class MessageService {
       ...createMessageDto,
       published_at: new Date(),
     });
+    const newMessage = await createdMessage.save();
     this.socketService.sendMessage('new_message', createdMessage);
-    return createdMessage.save();
+    return newMessage;
   }
 
   async findOne(id: string): Promise<Message> {
-    return this.messageModel.findOne({ id }).populate('chatroom').exec();
+    return this.messageModel
+      .findOne({ id }) /*.populate('chatroom')*/
+      .exec();
   }
 
   async deleteOne(id: string) {
