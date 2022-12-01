@@ -41,8 +41,8 @@ export class ControllerController {
     type: Message,
   })
   @ApiBearerAuth()
-  async findOne(@Param('id') id): Promise<Message[]> {
-    const result = await this.messageService.findAll();
+  async findOne(@Param('id') id): Promise<Message> {
+    const result = await this.messageService.findOne(id);
     return result;
   }
 

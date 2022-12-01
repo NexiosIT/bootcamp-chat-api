@@ -34,12 +34,12 @@ export class MessageService {
 
   async findOne(id: string): Promise<Message> {
     return this.messageModel
-      .findOne({ id }) /*.populate('chatroom')*/
+      .findOne({ _id: id }) /*.populate('chatroom')*/
       .exec();
   }
 
   async deleteOne(id: string) {
-    return this.messageModel.deleteOne({ id }).exec();
+    return this.messageModel.deleteOne({ _id: id }).exec();
   }
 
   async findAll(): Promise<Message[]> {

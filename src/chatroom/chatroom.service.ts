@@ -21,11 +21,11 @@ export class ChatroomService {
   }
 
   async findOne(id: string): Promise<Chatroom> {
-    return this.chatroomModel.findOne({ id }).exec();
+    return this.chatroomModel.findOne({ _id: id }).exec();
   }
 
   async deleteOne(id: string) {
-    return this.chatroomModel.deleteOne({ id }).exec();
+    return this.chatroomModel.deleteOne({ _id: id }).exec();
   }
 
   async findAll(userId?: string): Promise<Chatroom[]> {
