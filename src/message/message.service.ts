@@ -45,6 +45,8 @@ export class MessageService {
   }
 
   async findAll(): Promise<Message[]> {
-    return this.messageModel.find().populate('chatroom').exec();
+    return this.messageModel
+      .find() /*.populate('chatroom')*/
+      .exec();
   }
 }
