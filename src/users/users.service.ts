@@ -47,6 +47,7 @@ export class UsersService {
     this.socketService.sendMessage('new_user', {
       email: result.email,
       username: result.username,
+      _id: result._id
     });
     return;
   }
