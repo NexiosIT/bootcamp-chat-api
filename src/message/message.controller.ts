@@ -64,7 +64,7 @@ export class ControllerController {
   @ApiBearerAuth()
   @ApiResponse({
     status: 200,
-    description: 'OKs',
+    description: 'OK',
   })
   @ApiResponse({
     status: 400,

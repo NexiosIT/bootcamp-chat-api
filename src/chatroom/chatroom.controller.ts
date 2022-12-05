@@ -1,13 +1,17 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Request,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateChatroomDto } from './chatroom.dto';
 import { Chatroom } from './chatroom.schema';
@@ -50,5 +54,21 @@ export class ControllerController {
   })
   async create(@Body() newRoom: CreateChatroomDto): Promise<Chatroom> {
     return await this.chatroomService.create(newRoom);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:id')
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: 200,
+    description: 'OK',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Chatroom not found',
+  })
+  async delete(@Param('id') id, @Res() res: Response) {
+    const { deletedCount } = await this.chatroomService.deleteOne(id);
+    res.status(deletedCount === 1 ? 200 : HttpStatus.BAD_REQUEST).send();
   }
 }
