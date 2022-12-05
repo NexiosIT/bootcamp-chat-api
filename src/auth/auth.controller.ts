@@ -21,15 +21,19 @@ export class AuthController {
   @ApiBody({
     type: LoginDTO,
   })
-  @ApiResponse({ status: 401, description: 'Forbidden.' })
-  @ApiResponse({ status: 201, type: LoginResponseDTO })
+  @ApiResponse({ status: 401, description: 'Forbidden' })
+  @ApiResponse({
+    status: 201,
+    description: 'Valid JWT token for a day.',
+    type: LoginResponseDTO,
+  })
   async login(@Body() user: LoginDTO) {
     return this.authService.login(user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('logout')
-  @ApiResponse({ status: 401, description: 'Forbidden.' })
+  @ApiResponse({ status: 401, description: 'Forbidden' })
   @ApiResponse({ status: 200 })
   async logout(@Request() req, @Res() res: Response) {
     this.authService.logout(req.user);

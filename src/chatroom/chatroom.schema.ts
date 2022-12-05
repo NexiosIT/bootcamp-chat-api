@@ -7,7 +7,10 @@ export type ChatroomDocument = HydratedDocument<Chatroom>;
 @Schema()
 export class Chatroom {
   @Prop({ required: true })
-  @ApiProperty({ example: '111', description: 'The id of the user' })
+  @ApiProperty({
+    example: "Night's Watch",
+    description: 'The name of the chatroom',
+  })
   name: string;
 
   @Prop({ required: true })

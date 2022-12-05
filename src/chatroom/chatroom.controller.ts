@@ -13,7 +13,6 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { CreateChatroomDto } from './chatroom.dto';
 import { Chatroom } from './chatroom.schema';
 import { ChatroomService } from './chatroom.service';
 
@@ -52,7 +51,7 @@ export class ControllerController {
     description: 'Chatroom',
     type: Chatroom,
   })
-  async create(@Body() newRoom: CreateChatroomDto): Promise<Chatroom> {
+  async create(@Body() newRoom: Chatroom): Promise<Chatroom> {
     return await this.chatroomService.create(newRoom);
   }
 

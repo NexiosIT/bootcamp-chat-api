@@ -53,6 +53,10 @@ export class ControllerController {
     description: 'Message',
     type: Message,
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Chatroom not found',
+  })
   @ApiBearerAuth()
   async create(@Body() newMessage: CreateMessageDto): Promise<Message> {
     const result = await this.messageService.create(newMessage);

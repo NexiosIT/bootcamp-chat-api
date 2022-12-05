@@ -4,21 +4,21 @@ import { IsString } from 'class-validator';
 export class CreateUserDto {
   @IsString()
   @ApiProperty({
-    example: 'test',
+    example: 'JonSnow',
     description: 'The name of the User',
   })
   readonly username: string;
 
   @IsString()
   @ApiProperty({
-    example: 'demo@nexiosit.com',
+    example: 'jonsnow@got.hr',
     description: 'E-mail of the User',
   })
   readonly email: string;
 
   @IsString()
   @ApiProperty({
-    example: 'demo',
+    example: 'johnny123',
     description: 'The password of the User',
   })
   readonly password: string;

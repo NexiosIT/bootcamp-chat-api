@@ -38,9 +38,9 @@ export class UsersController {
 
   @Post()
   @ApiResponse({
-    status: 200,
-    description: 'Register an user',
-    type: CreateUserDto,
+    status: 201,
+    description: 'User successfully registered',
+    type: User,
   })
   @ApiBadRequestResponse({
     schema: {
@@ -73,7 +73,7 @@ export class UsersController {
   @Get('profile')
   @ApiResponse({
     status: 200,
-    description: 'Get profile of the user based on token',
+    description: 'Get all the userinfo based on token',
     type: User,
   })
   @ApiBearerAuth()

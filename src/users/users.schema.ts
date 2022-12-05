@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
@@ -21,7 +21,15 @@ export class User {
   email: string;
 
   @Prop({ required: true })
-  password: string;
+  @ApiProperty({
+    example: '638caeea91684e2d94d0a9d5',
+    description: 'Unique id of the User',
+  })
+  _id: string;
+
+  @ApiHideProperty()
+  @Prop({ required: true })
+  password?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

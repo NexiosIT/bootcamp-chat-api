@@ -6,6 +6,11 @@ import { ChatroomService } from '../chatroom/chatroom.service';
 import { CreateMessageDto } from './message.dto';
 import { Message, MessageDocument } from './message.schema';
 
+const messageProjection = {
+  __v: false,
+  password: false,
+};
+
 @Injectable()
 export class MessageService {
   constructor(
@@ -34,7 +39,7 @@ export class MessageService {
 
   async findOne(id: string): Promise<Message> {
     return this.messageModel
-      .findOne({ _id: id }) /*.populate('chatroom')*/
+      .findOne({ _id: id }, messageProjection) /*.populate('chatroom')*/
       .exec();
   }
 
@@ -46,7 +51,7 @@ export class MessageService {
 
   async findAll(): Promise<Message[]> {
     return this.messageModel
-      .find() /*.populate('chatroom')*/
+      .find({}, messageProjection) /*.populate('chatroom')*/
       .exec();
   }
 }
