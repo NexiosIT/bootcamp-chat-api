@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SocketModule } from 'src/socket/socket.module';
+import { SocketModule } from '../socket/socket.module';
 import { UsersController } from './users.controller';
 import { User, UserSchema } from './users.schema';
 import { UsersService } from './users.service';

@@ -1,8 +1,8 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { SocketService } from 'src/socket/socket.service';
 import { ChatroomService } from '../chatroom/chatroom.service';
+import { SocketService } from '../socket/socket.service';
 import { CreateMessageDto } from './message.dto';
 import { Message, MessageDocument } from './message.schema';
 
@@ -45,7 +45,6 @@ export class MessageService {
 
   async deleteOne(id: string) {
     this.socketService.sendMessage('delete_message', { id });
-
     return this.messageModel.deleteOne({ _id: id }).exec();
   }
 

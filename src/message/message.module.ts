@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SocketModule } from 'src/socket/socket.module';
 import { ChatroomModule } from '../chatroom/chatroom.module';
+import { SocketModule } from '../socket/socket.module';
 import { ControllerController } from './message.controller';
 import { Message, MessageSchema } from './message.schema';
 import { MessageService } from './message.service';
