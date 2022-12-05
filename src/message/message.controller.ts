@@ -49,7 +49,7 @@ export class ControllerController {
   @UseGuards(JwtAuthGuard)
   @Post()
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Message',
     type: Message,
   })

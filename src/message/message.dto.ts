@@ -9,7 +9,7 @@ export class CreateMessageDto {
 
   @ApiProperty({
     description: 'The id of the chatroom',
-    example: "Night's Watch",
+    example: '3u4I34343RO3iI44',
   })
   chatroom: string;
 
