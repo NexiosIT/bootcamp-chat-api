@@ -24,7 +24,7 @@ export class ChatroomService {
     return this.chatroomModel.findOne({ _id: id }).exec();
   }
 
-  async deleteOne(id: string) {
+  async deleteOne(id: string): Promise<any> {
     this.socketService.sendMessage('deletechatroom', { id });
     return this.chatroomModel.deleteOne({ _id: id }).exec();
   }

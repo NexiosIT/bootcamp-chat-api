@@ -43,7 +43,7 @@ export class MessageService {
       .exec();
   }
 
-  async deleteOne(id: string) {
+  async deleteOne(id: string): Promise<any> {
     this.socketService.sendMessage('delete_message', { id });
     return this.messageModel.deleteOne({ _id: id }).exec();
   }
