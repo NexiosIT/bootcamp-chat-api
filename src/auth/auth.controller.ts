@@ -1,5 +1,13 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDTO, LoginResponseDTO } from './dto/LoginDto';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -22,8 +30,9 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('logout')
   @ApiResponse({ status: 401, description: 'Forbidden.' })
-  @ApiResponse({ status: 201 })
-  async logout(@Request() req) {
-    return this.authService.logout(req.user);
+  @ApiResponse({ status: 200 })
+  async logout(@Request() req, @Res() res: Response) {
+    this.authService.logout(req.user);
+    res.status(200).send();
   }
 }
