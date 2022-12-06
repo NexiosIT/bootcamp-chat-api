@@ -8,14 +8,14 @@ export type UserDocument = HydratedDocument<User>;
 export class User {
   @Prop({ required: true })
   @ApiProperty({
-    example: 'nexios',
+    example: 'JonSnow',
     description: 'The name of the User',
   })
   username: string;
 
   @Prop({ required: true })
   @ApiProperty({
-    example: 'demo@nexiosit.com',
+    example: 'jonsnow@got.hr',
     description: 'E-mail adress of the User',
   })
   email: string;
