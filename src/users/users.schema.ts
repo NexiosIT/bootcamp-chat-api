@@ -20,7 +20,6 @@ export class User {
   })
   email: string;
 
-  @Prop({ required: true })
   @ApiProperty({
     example: '638caeea91684e2d94d0a9d5',
     description: 'Unique id of the User',
