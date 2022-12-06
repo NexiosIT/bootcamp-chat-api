@@ -47,9 +47,13 @@ export class ControllerController {
   @Post()
   @ApiBearerAuth()
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Chatroom',
     type: Chatroom,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Chatroom already exist',
   })
   async create(@Body() newRoom: Chatroom): Promise<Chatroom> {
     return await this.chatroomService.create(newRoom);
